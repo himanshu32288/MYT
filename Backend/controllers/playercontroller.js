@@ -58,5 +58,33 @@ const createNewRecent = async (req, res, next) => {
     res.status(201).json(createdPlayer);
 }
 
+const getPlayerById = async (req, res, next) => {
+    const playerId = req.params.pid;
+    let playerData;
+    try {
+        playerData = await Player.findById(playerId);
+    } catch (err) {
+        return next(err);
+    }
+    if (!playerData) {
+        return next("Player Data missing");
+    }
+    return res.status(200).json(playerData);
+}
+const getRecentById = async (req, res, next) => {
+    const playerId = req.params.pid;
+    let playerData;
+    try {
+        playerData = await Recent.findById(playerId);
+    } catch (err) {
+        return next(err);
+    }
+    if (!playerData) {
+        return next("Player Data missing");
+    }
+    return res.status(200).json(playerData);
+}
 exports.createNewPlayer = createNewPlayer;
 exports.createNewRecent = createNewRecent;
+exports.getPlayerById = getPlayerById;
+exports.getRecentById = getRecentById;
