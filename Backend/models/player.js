@@ -40,6 +40,6 @@ const playerSchema = new Schema({
 })
 
 playerSchema.index({ name: 1, dob: 1 }, { unique: true });
-playerSchema.plugin(uniqueValidator);
+// playerSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Player', playerSchema);

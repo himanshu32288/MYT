@@ -8,8 +8,7 @@ const recentSchema = new Schema({
     recentfantasypoints: [{
         team: { type: String },
         points: { type: Number, required: true }
-    }],
-    avg: { type: Number }
+    }]
 }
 )
 

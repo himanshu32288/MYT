@@ -32,14 +32,31 @@ const createNewPlayer = async (req, res, next) => {
     res.status(201).json({ name: name });
 }
 
+const updatePlayer = async (req, res, next) => {
+    let { batstats, bowl } = req.body;
+    const playerId = req.params.pid;
+    let playerData;
+    try {
+        playerData = await Player.findById(playerId);
+    } catch (err) {
+        return next(err);
+    }
+    if (!playerData) {
+        return next("Player Data missing Create new Record instead");
+    }
+    playerData.batstats = batstats;
+    playerData.bowl = bowl;
+    try {
+        await playerData.save();
+    } catch (err) {
+        return next(err);
+    }
+    return res.status(200).json(playerData);
+}
 const createNewRecent = async (req, res, next) => {
-    let { name, recentfantasypoints } = req.body;
-    let n = Object.keys(recentfantasypoints).length;
-    let avgPoints = 0;
+    let { name, recentfantasypoints, kaam } = req.body;
+    console.log(req.body);
 
-    for (x of recentfantasypoints)
-        avgPoints += Number(x.points);
-    avgPoints /= n;
     let existingPlayer;
     try {
         existingPlayer = await Recent.findOne({ name: name });
@@ -84,7 +101,20 @@ const getRecentById = async (req, res, next) => {
     }
     return res.status(200).json(playerData);
 }
+
+const getPlayerByName = async (req, res, next) => {
+    const name = req.params.name;
+    let regex = new RegExp(name, 'i');
+    let players = await Player.find({ name: { $regex: regex } });
+    if (!players) {
+        return next("no player found");
+    }
+    return res.status(200).json(players);
+
+}
 exports.createNewPlayer = createNewPlayer;
 exports.createNewRecent = createNewRecent;
 exports.getPlayerById = getPlayerById;
 exports.getRecentById = getRecentById;
+exports.updatePlayer = updatePlayer;
+exports.getPlayerByName = getPlayerByName;
