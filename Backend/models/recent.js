@@ -4,11 +4,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recentSchema = new Schema({
-    name: { type: String, required: true },
-    recentfantasypoints: [{
-        team: { type: String },
-        points: { type: Number, required: true }
-    }]
+    team: { type: String, required: true },
+    points: { type: Number, required: true },
+    playerId: { type: mongoose.Types.ObjectId, required: true, ref: 'Player' }
 }
 )
 

@@ -1,10 +1,10 @@
 const { Router } = require('express');
 const Player = require('../models/player');
 const Recent = require('../models/recent');
-
+const mongoose = require('mongoose');
 
 const createNewPlayer = async (req, res, next) => {
-    const { name, dob, batstats, bowl } = req.body;
+    const { name, dob, batstats, bowl, recent } = req.body;
     let existingPlayer;
     try {
         existingPlayer = await Player.findOne({ name: name, dob: dob });
@@ -20,30 +20,34 @@ const createNewPlayer = async (req, res, next) => {
         name,
         dob,
         batstats,
-        bowl
+        bowl,
+        recent
     });
 
     try {
         await createdPlayer.save();
     } catch (err) {
-        const error = "Not able to save ";
-        return next(error);
+
+        return next(err);
     }
     res.status(201).json({ name: name });
 }
 
 const updatePlayer = async (req, res, next) => {
     let { batstats, bowl } = req.body;
+
     const playerId = req.params.pid;
     let playerData;
     try {
         playerData = await Player.findById(playerId);
     } catch (err) {
+
         return next(err);
     }
     if (!playerData) {
         return next("Player Data missing Create new Record instead");
     }
+
     playerData.batstats = batstats;
     playerData.bowl = bowl;
     try {
@@ -54,25 +58,37 @@ const updatePlayer = async (req, res, next) => {
     return res.status(200).json(playerData);
 }
 const createNewRecent = async (req, res, next) => {
-    let { name, recentfantasypoints, kaam } = req.body;
-    console.log(req.body);
+    let { team, points, playerId } = req.body;
 
-    let existingPlayer;
+
+
+    let createdNewRecent = new Recent({
+        team,
+        points,
+        playerId
+    })
+    let player;
     try {
-        existingPlayer = await Recent.findOne({ name: name });
+        player = await Player.findById(playerId);
     } catch (err) {
         return next(err);
     }
-    if (existingPlayer)
-        return next("Player recent Performance exist update instead");
+    if (!player) {
+        return next("player info not available create player first");
+    }
+    try {
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await createdNewRecent.save({ session: sess });
+        player.recent.push(createdNewRecent);
+        await player.save({ session: sess });
+        await sess.commitTransaction();
+    } catch (err) {
 
-    const createdPlayer = new Recent({
-        name,
-        recentfantasypoints,
-        avg: avgPoints
-    });
-    createdPlayer.save()
-    res.status(201).json(createdPlayer);
+        return next(err);
+    }
+
+    return res.status(201).json(createNewRecent);
 }
 
 const getPlayerById = async (req, res, next) => {
@@ -112,6 +128,7 @@ const getPlayerByName = async (req, res, next) => {
     return res.status(200).json(players);
 
 }
+
 exports.createNewPlayer = createNewPlayer;
 exports.createNewRecent = createNewRecent;
 exports.getPlayerById = getPlayerById;

@@ -35,7 +35,8 @@ const playerSchema = new Schema({
             fivew: { type: Number },
             tenw: { type: Number }
         }
-    ]
+    ],
+    recent: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Recent' }]
 
 })
 
