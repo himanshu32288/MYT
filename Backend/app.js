@@ -7,7 +7,7 @@ const venueRoutes = require('./routes/venueroutes')
 app.use(bodyParser.json());
 
 app.use("/api/player", playerRoutes);
-app.use("/api/venue", venueRoutes)
+app.use("/api/venue", venueRoutes);
 mongoose
     .connect(
         `mongodb+srv://himanshu20:xtreme20@cluster0.dumxb.mongodb.net/myt?retryWrites=true&w=majority`

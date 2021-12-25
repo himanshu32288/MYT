@@ -1,4 +1,3 @@
-const { Router } = require('express');
 const Player = require('../models/player');
 const Recent = require('../models/recent');
 const mongoose = require('mongoose');
@@ -55,7 +54,7 @@ const updatePlayer = async (req, res, next) => {
     } catch (err) {
         return next(err);
     }
-    return res.status(200).json(playerData);
+    res.status(200).json(playerData);
 }
 const createNewRecent = async (req, res, next) => {
     let { team, points, playerId } = req.body;
@@ -102,20 +101,20 @@ const getPlayerById = async (req, res, next) => {
     if (!playerData) {
         return next("Player Data missing");
     }
-    return res.status(200).json(playerData);
+    res.status(200).json(playerData);
 }
 const getRecentById = async (req, res, next) => {
     const playerId = req.params.pid;
     let playerData;
     try {
-        playerData = await Recent.findById(playerId);
+        playerData = await Player.findById(playerId).populate('recent').select("recent");
     } catch (err) {
         return next(err);
     }
     if (!playerData) {
         return next("Player Data missing");
     }
-    return res.status(200).json(playerData);
+    res.status(200).json(playerData);
 }
 
 const getPlayerByName = async (req, res, next) => {
@@ -125,7 +124,7 @@ const getPlayerByName = async (req, res, next) => {
     if (!players) {
         return next("no player found");
     }
-    return res.status(200).json(players);
+    res.status(200).json(players);
 
 }
 
