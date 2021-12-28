@@ -1,9 +1,12 @@
-
-import './App.css';
+import "./App.css";
+import Navbar from "./Navigation/Navbar";
 
 function App() {
   return (
-    <h1>MYT ndnn</h1>
+    <>
+      <Navbar />
+      <h1>MYT ndnn</h1>
+    </>
   );
 }
 
