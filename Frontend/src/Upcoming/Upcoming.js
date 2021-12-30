@@ -1,5 +1,5 @@
 const Upcoming = () => {
-  return <div>this is upcoming</div>;
+  return <h1>Upcoming matches</h1>;
 };
 
 export default Upcoming;

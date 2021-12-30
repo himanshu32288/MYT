@@ -8,10 +8,13 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Upcoming />} />
-          <Route path="/player" element={<Player />} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<Upcoming />} />
+            <Route path="/player" element={<Player />} />
+            <Route path="/upcoming" element={<Upcoming />} />
+          </Routes>
+        </main>
       </BrowserRouter>
     </>
   );
