@@ -4,6 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "./Navbar.css";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
+import Backdrop from "./Backdrop";
 const Navbar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
@@ -17,6 +18,7 @@ const Navbar = () => {
 
   return (
     <>
+      {drawerIsOpen && <Backdrop onClick={closeDrawerHandler} />}
       {drawerIsOpen && (
         <SideDrawer onClick={closeDrawerHandler} show={drawerIsOpen}>
           <nav className="nav-drawer">
