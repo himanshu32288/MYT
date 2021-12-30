@@ -1,23 +1,11 @@
-import { useState } from "react";
-import SideDrawer from "./SideDrawer";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import "./Navbar.css";
 import NavLinks from "./NavLinks";
-import DehazeIcon from "@mui/icons-material/Dehaze";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import SideDrawer from "./SideDrawer";
 const Navbar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
-  const [state, setState] = useState(false);
-
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ open });
-  };
 
   const openDrawerHandler = () => {
     setDrawerIsOpen(true);
@@ -29,20 +17,21 @@ const Navbar = () => {
 
   return (
     <>
-      <header>
-        {drawerIsOpen && (
-          <SwipeableDrawer
-            open={state}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
-          >
-            Hello Uncle
-          </SwipeableDrawer>
-        )}
-        <button onClick={toggleDrawer(true)}>
-          <DehazeIcon />
+      {drawerIsOpen && (
+        <SideDrawer onClick={closeDrawerHandler} show={drawerIsOpen}>
+          <nav className="nav-drawer">
+            <NavLinks />
+          </nav>
+        </SideDrawer>
+      )}
+      <header className="main-header">
+        <button className="side-drawer-button" onClick={openDrawerHandler}>
+          <MenuIcon />
         </button>
-        <nav>
+        <h1 className="main-navigation__title">
+          <Link to="/">MYT</Link>
+        </h1>
+        <nav className="main-navigation__header-nav">
           <NavLinks />
         </nav>
       </header>
