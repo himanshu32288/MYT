@@ -5,13 +5,13 @@ const NavLinks = () => {
     <>
       <ul className="nav-links">
         <li>
-          <NavLink to="/player">Player</NavLink>
+          <NavLink to="/player">PLAYERS</NavLink>
         </li>
         <li>
-          <NavLink to="/upcoming">Upcoming Matches</NavLink>
+          <NavLink to="/schedule">SCHEDULE</NavLink>
         </li>
         <li>
-          <NavLink to="/player">Player</NavLink>
+          <NavLink to="/player">VENUES</NavLink>
         </li>
       </ul>
     </>

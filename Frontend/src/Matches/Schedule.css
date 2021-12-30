@@ -1,0 +1,17 @@
+.schedule {
+  width: 94%;
+  height: 100vh;
+  margin-right: 3%;
+  margin-left: 3%;
+}
+
+.schedulebar {
+  border: 1px solid rgb(230, 231, 236);
+  border-radius: 5px;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}

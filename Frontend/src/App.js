@@ -1,8 +1,9 @@
 import "./App.css";
 import Navbar from "./Navigation/Navbar";
-import Upcoming from "./Upcoming/Upcoming";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Player from "./Player/Player";
+import Schedule from "./Matches/Schedule";
 function App() {
   return (
     <>
@@ -10,9 +11,9 @@ function App() {
         <Navbar />
         <main>
           <Routes>
-            <Route path="/" element={<Upcoming />} />
+            <Route path="/" element={<Schedule />} />
             <Route path="/player" element={<Player />} />
-            <Route path="/upcoming" element={<Upcoming />} />
+            <Route path="/schedule" element={<Schedule />} />
           </Routes>
         </main>
       </BrowserRouter>
