@@ -19,13 +19,13 @@ const Navbar = () => {
   return (
     <>
       {drawerIsOpen && <Backdrop onClick={closeDrawerHandler} />}
-      {drawerIsOpen && (
-        <SideDrawer onClick={closeDrawerHandler} show={drawerIsOpen}>
-          <nav className="nav-drawer">
-            <NavLinks />
-          </nav>
-        </SideDrawer>
-      )}
+
+      <SideDrawer onClick={closeDrawerHandler} show={drawerIsOpen}>
+        <nav className="nav-drawer">
+          <NavLinks />
+        </nav>
+      </SideDrawer>
+
       <header className="main-header">
         <button className="side-drawer-button" onClick={openDrawerHandler}>
           <MenuIcon />

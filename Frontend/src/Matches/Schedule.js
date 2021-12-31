@@ -8,7 +8,7 @@ const Shedule = () => {
         <div className="upcoming">Upcoming</div>
       </div>
       <div className="matches">
-        <h1>IND VS BANchod</h1>
+        <h1>IND VS BAN</h1>
         <h1>IND VS BANsss</h1>
         <h1>IND VS BAN</h1>
         <h1>IND VS BAN</h1>
