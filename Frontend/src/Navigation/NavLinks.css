@@ -16,15 +16,19 @@
 
 .nav-links a {
   border: 1px solid transparent;
-  color: #546e7a;
+  color: #ffffff;
   text-decoration: none;
   padding: 0.5rem;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  line-height: 1;
 }
 
 .nav-links a:hover,
 .nav-links a:active,
 .nav-links a.active {
-  color: #000000;
+  color: #ff0000;
 }
 
 .nav-links button {
@@ -56,7 +60,7 @@
   }
 
   .nav-links a {
-    color: #546e7a;
+    color: #ffffff;
     text-decoration: none;
   }
 
@@ -68,6 +72,6 @@
 
   .nav-links button:hover,
   .nav-links button:active {
-    color: #000000;
+    color: #ff0000;
   }
 }

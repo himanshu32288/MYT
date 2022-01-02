@@ -1,0 +1,13 @@
+.new-venue {
+  width: 100%;
+  border: solid 3px rgba(236, 241, 236, 0.89);
+  height: auto;
+  margin: 5px;
+  padding: 25px;
+}
+
+.venue_card {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}

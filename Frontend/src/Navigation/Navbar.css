@@ -9,7 +9,7 @@
 }
 
 .main-navigation__title {
-  color: #000000;
+  color: #ffffff;
   font-size: 26px;
   margin-left: 60px;
   margin-right: 30px;
@@ -17,7 +17,7 @@
 
 .main-navigation__title a {
   text-decoration: none;
-  color: #000000;
+  color: #ffffff;
 }
 
 .main-navigation__header-nav {
@@ -39,13 +39,15 @@ main {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   -webkit-box-align: stretch;
   font-size: 13px;
   z-index: 5;
+  color: white;
+  border-bottom: 1px solid #eeeeee;
 }
 @media (min-width: 768px) {
   .side-drawer-button {
