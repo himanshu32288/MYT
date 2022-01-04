@@ -1,46 +1,43 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const playerSchema = new Schema({
-    name: { type: String, required: true },
-    dob: { type: Date, required: true },
-    batstats: [
-        {
-            format: { type: String, required: true },
-            mat: { type: Number },
-            inns: { type: Number },
-            runs: { type: Number },
-            avg: { type: Number },
-            sr: { type: Number },
-            hs: { type: Number },
-            no: { type: Number },
-            hund: { type: Number },
-            fifty: { type: Number },
-            four: { type: Number },
-            six: { type: Number }
-        }
-    ],
-    bowl: [
-        {
-            format: { type: String, required: true },
-            mat: { type: Number },
-            inns: { type: Number },
-            runs: { type: Number },
-            wkt: { type: Number },
-            bbi: { type: String },
-            eco: { type: Number },
-            avg: { type: Number },
-            fivew: { type: Number },
-            tenw: { type: Number }
-        }
-    ],
-    recent: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Recent' }]
+  name: { type: String, required: true },
+  batstats: [
+    {
+      format: { type: String, required: true },
+      mat: { type: Number },
+      inns: { type: Number },
+      no: { type: Number },
+      runs: { type: Number },
+      hs: { type: Number },
+      avg: { type: Number },
+      bf: { type: Number },
+      hund: { type: Number },
+      fifty: { type: Number },
+      zero: { type: Number },
+      sr: { type: Number },
+      four: { type: String },
+      six: { type: String },
+    },
+  ],
+  bowl: [
+    {
+      format: { type: String, required: true },
+      mat: { type: Number },
+      inns: { type: Number },
+      bowl: { type: Number },
+      runs: { type: Number },
+      wkt: { type: Number },
+      eco: { type: Number },
+      avg: { type: Number },
+      fourw: { type: Number },
+      fivew: { type: Number },
+      tenw: { type: Number },
+    },
+  ],
+  recent: [{ type: mongoose.Types.ObjectId, required: true, ref: "Recent" }],
+});
 
-})
-
-playerSchema.index({ name: 1, dob: 1 }, { unique: true });
-// playerSchema.plugin(uniqueValidator);
-
-module.exports = mongoose.model('Player', playerSchema);
+module.exports = mongoose.model("Player", playerSchema);

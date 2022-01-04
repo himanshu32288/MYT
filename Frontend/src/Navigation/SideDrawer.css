@@ -4,7 +4,7 @@
   z-index: 100;
 }
 .sidedrawer {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   width: 250px;
   height: 100vh;
   display: flex;
