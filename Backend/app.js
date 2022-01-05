@@ -5,13 +5,13 @@ const app = express();
 const playerRoutes = require("./routes/playerroutes");
 const venueRoutes = require("./routes/venueroutes");
 const teamRoutes = require("./routes/teamroutes");
-const fixtureRoutes = require("./routes/fixtureroutes");
+// const fixtureRoutes = require("./routes/fixtureroutes");
 app.use(bodyParser.json({ limit: "16mb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api/player", playerRoutes);
 app.use("/api/venue", venueRoutes);
-app.use("/api/fixture", fixtureRoutes);
+// app.use("/api/fixture", fixtureRoutes);
 app.use("/api/team", teamRoutes);
 mongoose
   .connect(
