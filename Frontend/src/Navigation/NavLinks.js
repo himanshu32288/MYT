@@ -13,6 +13,9 @@ const NavLinks = () => {
         <li>
           <NavLink to="/venue">VENUES</NavLink>
         </li>
+        <li>
+          <NavLink to="/admin">ADMIN</NavLink>
+        </li>
       </ul>
     </>
   );

@@ -7,17 +7,10 @@
   border-bottom: 1px solid #eeeeee;
 }
 
-.search {
-  width: 300px;
-  color: white !important;
-}
-
 .venue-wrapper {
   width: 90%;
   margin-left: 5%;
   margin-top: 5rem;
-  display: flex;
-  flex-direction: column;
 }
 .createnew {
   color: blue;
@@ -30,8 +23,10 @@
   color: #ff0000;
 }
 
-.venue-card {
+.venue_card {
   width: 100%;
+  justify-content: space-between;
+  display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  flex-flow: row wrap;
 }
