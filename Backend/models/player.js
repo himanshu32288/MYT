@@ -37,7 +37,6 @@ const playerSchema = new Schema({
       tenw: { type: Number },
     },
   ],
-  recent: [{ type: mongoose.Types.ObjectId, required: true, ref: "Recent" }],
 });
 
 module.exports = mongoose.model("Player", playerSchema);

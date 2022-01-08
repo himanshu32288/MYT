@@ -1,7 +1,8 @@
 import "./Admin.css";
-import Venue from "./Venue/Venue";
+// import Venue from "./Venue/Venue"; 
+import Player from "./Player/Player";
 const Admin = () => {
-  return <Venue />;
+  return <Player />;
 };
 
 export default Admin;

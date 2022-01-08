@@ -1,20 +1,28 @@
 import "./Player.css";
-import MatchCard from "../Matches/Card/MatchCard";
+import { useState, useEffect } from "react";
+import { useHttpClient } from "../shared/hook/http-hook";
+const Player = () => {
+  const [loadedPlayers, setLoadedPlayers] = useState();
+  const { sendRequest } = useHttpClient();
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/player/61d48a0a9120654c4cbc0fb8"
+        );
 
-const Venue = () => {
+        setLoadedPlayers(responseData);
+      } catch (err) {}
+    };
+    fetchUsers();
+  }, [sendRequest]);
   return (
     <div className="venue-wrapper">
       <div className="venue_card">
-        <MatchCard />
-        <MatchCard />
-        <MatchCard />
-        <MatchCard />
-        <MatchCard />
-        <MatchCard />
-        <MatchCard />
+        <h1>{loadedPlayers.name}</h1>
       </div>
     </div>
   );
 };
 
-export default Venue;
+export default Player;
