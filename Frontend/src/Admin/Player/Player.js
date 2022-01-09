@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useHttpClient } from "../../shared/hook/http-hook";
 const Player = () => {
   const [recent, setRecent] = useState([
     {
@@ -9,6 +9,7 @@ const Player = () => {
       date: "",
     },
   ]);
+  const { sendRequest } = useHttpClient();
   const [playerName, setPlayerName] = useState("");
   const addfield = (e) => {
     e.preventDefault();
@@ -16,9 +17,15 @@ const Player = () => {
       return [...prev, { team1: "", team2: "", points: "", date: "" }];
     });
   };
-  const handeleSubmit = (e) => {
+  const handeleSubmit = async (e) => {
     e.preventDefault();
-    console.log(playerName, recent);
+    const data = JSON.stringify({ name: playerName, recent: recent });
+    console.log(data);
+    await sendRequest("http://localhost:5000/api/player/fantasy", "POST", data);
+    try {
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const changeHandler = (e, index) => {
@@ -33,8 +40,8 @@ const Player = () => {
   };
   return (
     <>
-      <pre>{playerName}</pre>
-      <pre>{JSON.stringify(recent, undefined, 2)}</pre>
+      {/* <pre>{playerName}</pre> */}
+      {/* <pre>{JSON.stringify(recent, undefined, 2)}</pre> */}
       <form onSubmit={handeleSubmit}>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" val={playerName} onChange={nameHandler} />
@@ -69,10 +76,10 @@ const Player = () => {
               />
               <label htmlFor="date">Date</label>
               <input
-                type="date"
                 name="date"
                 id={`date${i}`}
-                value={val.points}
+                value={val.date}
+                type="date"
                 onChange={(e) => changeHandler(e, i)}
               />
               {/* <label htmlFor={`date${i}`}>Date</label>

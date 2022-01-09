@@ -6,10 +6,10 @@ const recentSchema = new Schema({
   name: { type: String, required: true },
   recent: [
     {
-      team1: { type: String, required: true },
-      team2: { type: String, required: true },
+      team1: { type: String },
+      team2: { type: String },
       points: { type: Number, required: true },
-      date: { type: Date, required: true },
+      date: { type: Date },
     },
   ],
 });
