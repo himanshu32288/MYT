@@ -18,6 +18,7 @@ app.use((req, res, next) => {
 
   next();
 });
+
 app.use("/api/player", playerRoutes);
 app.use("/api/venue", venueRoutes);
 // app.use("/api/fixture", fixtureRoutes);

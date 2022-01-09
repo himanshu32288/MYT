@@ -21,7 +21,14 @@ const Player = () => {
     e.preventDefault();
     const data = JSON.stringify({ name: playerName, recent: recent });
     console.log(data);
-    await sendRequest("http://localhost:5000/api/player/fantasy", "POST", data);
+    await sendRequest(
+      "http://localhost:5000/api/player/fantasy",
+      "POST",
+      data,
+      {
+        "Content-Type": "application/json",
+      }
+    );
     try {
     } catch (err) {
       console.log(err);

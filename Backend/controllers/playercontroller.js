@@ -54,6 +54,7 @@ const updatePlayer = async (req, res, next) => {
   res.status(200).json(playerData);
 };
 const createNewRecent = async (req, res, next) => {
+  // console.log(req.body);
   let { name, recent } = req.body;
 
   let createdNewRecent = new Recent({
