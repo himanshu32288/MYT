@@ -68,7 +68,7 @@ const createNewRecent = async (req, res, next) => {
     return next(err);
   }
 
-  return res.status(201).json(createNewRecent);
+  return res.status(201).json({ message: "success" });
 };
 
 const getPlayerById = async (req, res, next) => {
@@ -101,21 +101,37 @@ const getRecentById = async (req, res, next) => {
 const getRecentByName = async (req, res, next) => {
   const name = req.params.name;
   let regex = new RegExp(name, "i");
-  let players = await Recent.find({ name: { $regex: regex } });
+  let players;
+  try {
+    players = await Recent.find({ name: { $regex: regex } });
+  } catch (err) {
+    return next(err);
+  }
   if (!players) {
     return next("no player found");
   }
-  res.status(200).json(players);
+  console.log(players);
+  res.json({
+    players: players.map((player) => player.toObject({ getters: true })),
+  });
 };
 
 const getPlayerByName = async (req, res, next) => {
   const name = req.params.name;
   let regex = new RegExp(name, "i");
-  let players = await Player.find({ name: { $regex: regex } });
+  let players;
+  try {
+    await Player.find({ name: { $regex: regex } });
+  } catch (err) {
+    return next(err);
+  }
   if (!players) {
     return next("no player found");
   }
-  res.status(200).json(players);
+  console.log(players);
+  res.json({
+    players: players.map((player) => player.toObject({ getters: true })),
+  });
 };
 
 exports.createNewPlayer = createNewPlayer;
@@ -124,3 +140,4 @@ exports.getPlayerById = getPlayerById;
 exports.getRecentById = getRecentById;
 exports.updatePlayer = updatePlayer;
 exports.getPlayerByName = getPlayerByName;
+exports.getRecentByName = getRecentByName;

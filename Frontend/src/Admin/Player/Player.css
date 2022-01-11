@@ -1,0 +1,14 @@
+.playerform {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-left: 15%;
+}
+
+.recent {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}

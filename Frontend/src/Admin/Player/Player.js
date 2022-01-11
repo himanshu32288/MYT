@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHttpClient } from "../../shared/hook/http-hook";
+import "./Player.css";
 const Player = () => {
   const [recent, setRecent] = useState([
     {
@@ -9,8 +10,9 @@ const Player = () => {
       date: "",
     },
   ]);
+  const [res, setResponse] = useState();
   const { sendRequest } = useHttpClient();
-  const [playerName, setPlayerName] = useState("");
+  const [playerName, setPlayerName] = useState({});
   const addfield = (e) => {
     e.preventDefault();
     setRecent((prev) => {
@@ -19,15 +21,17 @@ const Player = () => {
   };
   const handeleSubmit = async (e) => {
     e.preventDefault();
-    const data = JSON.stringify({ name: playerName, recent: recent });
+    const data = JSON.stringify({ name: playerName, recent: recent }, null, 2);
     console.log(data);
-    await sendRequest(
-      "http://localhost:5000/api/player/fantasy",
-      "POST",
-      data,
-      {
-        "Content-Type": "application/json",
-      }
+    setResponse(
+      await sendRequest(
+        "http://localhost:5000/api/player/fantasy",
+        "POST",
+        data,
+        {
+          "Content-Type": "application/json",
+        }
+      )
     );
     try {
     } catch (err) {
@@ -49,7 +53,7 @@ const Player = () => {
     <>
       {/* <pre>{playerName}</pre> */}
       {/* <pre>{JSON.stringify(recent, undefined, 2)}</pre> */}
-      <form onSubmit={handeleSubmit}>
+      <form onSubmit={handeleSubmit} className="playerform">
         <label htmlFor="name">Name</label>
         <input type="text" id="name" val={playerName} onChange={nameHandler} />
 
@@ -104,6 +108,7 @@ const Player = () => {
         <button onClick={addfield}>+</button>
         <button type="submit">Submit</button>
       </form>
+      {res && <h3>{res.message}</h3>}
     </>
   );
 };
