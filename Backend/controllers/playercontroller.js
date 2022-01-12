@@ -110,10 +110,8 @@ const getRecentByName = async (req, res, next) => {
   if (!players) {
     return next("no player found");
   }
-  console.log(players);
-  res.json({
-    players: players.map((player) => player.toObject({ getters: true })),
-  });
+  // console.log(players);
+  res.json({ players });
 };
 
 const getPlayerByName = async (req, res, next) => {
@@ -128,9 +126,9 @@ const getPlayerByName = async (req, res, next) => {
   if (!players) {
     return next("no player found");
   }
-  console.log(players);
+  // console.log(players);
   res.json({
-    players: players.map((player) => player.toObject({ getters: true })),
+    players,
   });
 };
 

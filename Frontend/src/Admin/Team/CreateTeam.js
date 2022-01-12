@@ -3,6 +3,7 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateTeam.css";
 import { useHttpClient } from "../../shared/hook/http-hook";
+import TeamMember from "./TeamMember";
 const validate = (values) => {
   const errors = {};
   if (!values.name) errors.name = "name is required";
@@ -17,7 +18,7 @@ const validate = (values) => {
 const CreateTeam = () => {
   const [search, setSearch] = useState("");
   const [record, setRecord] = useState([]);
-
+  const [teamPlayer, setTeamPlayer] = useState([]);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -30,11 +31,30 @@ const CreateTeam = () => {
   });
   const { sendRequest } = useHttpClient();
   const searchRecords = async () => {
+    if (search.trim().length === 0) {
+      setRecord([]);
+      return;
+    }
     const data = await sendRequest(
-      `http://localhost:5000/api/player/recent/search/${search}`,
-      "GET"
+      "http://localhost:5000/api/player/recent/search/" + search.trim()
     );
-    setRecord(data);
+    setRecord(data.players);
+  };
+
+  const addPlayer = (player) => {
+    for (let x of teamPlayer) {
+      if (x._id === player._id) return;
+    }
+    setTeamPlayer((prev) => {
+      return [...prev, player];
+    });
+  };
+  const deletePlayer = (id) => {
+    setTeamPlayer((prev) => {
+      return prev.filter((item) => {
+        return item._id !== id;
+      });
+    });
   };
   return (
     <>
@@ -64,20 +84,41 @@ const CreateTeam = () => {
         {formik.touched.shortname && formik.errors.shortname ? (
           <div>{formik.errors.shortname}</div>
         ) : null}
-        <button type="submit">Submit</button>
+        <div className="selected_player_container">
+          <TeamMember teamPlayer={teamPlayer} deletePlayer={deletePlayer} />
+        </div>
+        <button type="submit">Create team</button>
       </form>
+
       <h4 className="mb-3 text-center mt-4">Search Records in MERN</h4>
-      <div class="form-outline">
+      <div className="form-outline">
         <input
           type="text"
           id="form1"
           onKeyUp={searchRecords}
           onChange={(e) => setSearch(e.target.value)}
-          class="form-control"
+          className="form-control"
           placeholder="Search Player"
           style={{ backgroundColor: "#ececec" }}
+          autoComplete="off"
         />
       </div>
+      <ul>
+        {record.map((r) => {
+          return (
+            <div className="searchplayer" key={r._id}>
+              <li>{r?.name}</li>
+              <button
+                onClick={() => {
+                  addPlayer(r);
+                }}
+              >
+                +
+              </button>
+            </div>
+          );
+        })}
+      </ul>
     </>
   );
 };

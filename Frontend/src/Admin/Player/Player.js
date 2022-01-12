@@ -27,10 +27,10 @@ const Player = () => {
       await sendRequest(
         "http://localhost:5000/api/player/fantasy",
         "POST",
-        data,
         {
           "Content-Type": "application/json",
-        }
+        },
+        data
       )
     );
     try {
