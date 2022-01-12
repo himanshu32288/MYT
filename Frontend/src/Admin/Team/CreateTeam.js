@@ -26,7 +26,12 @@ const CreateTeam = () => {
     },
     validate,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      const players = [];
+      for (let x of teamPlayer) {
+        players.push(x._id);
+      }
+      const data = { ...values, players };
+      alert(JSON.stringify(data, null, 2));
     },
   });
   const { sendRequest } = useHttpClient();
