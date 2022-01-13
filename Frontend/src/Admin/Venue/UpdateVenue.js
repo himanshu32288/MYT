@@ -12,7 +12,7 @@ const validate = (values) => {
   return errors;
 };
 
-const UpdatePlace = () => {
+const UpdatePlace = (props) => {
   const formik = useFormik({
     initialValues: {
       name: "",

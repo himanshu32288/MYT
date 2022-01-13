@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
-import { useState } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateTeam.css";
 import { useHttpClient } from "../../shared/hook/http-hook";
 import TeamMember from "./TeamMember";
+
 const validate = (values) => {
   const errors = {};
   if (!values.name) errors.name = "name is required";
@@ -14,15 +15,18 @@ const validate = (values) => {
     errors.shortname = "shortname should be of 3 character";
   return errors;
 };
-
-const CreateTeam = () => {
+function areEqual(prevProps, nextProps) {
+  return prevProps.teamPlayer.length === nextProps.teamPlayer.length;
+}
+const UpdateTeam = React.memo((props) => {
   const [search, setSearch] = useState("");
   const [record, setRecord] = useState([]);
   const [teamPlayer, setTeamPlayer] = useState([]);
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      shortname: "",
+      name: props.team.name,
+      shortname: props.team.shortname,
     },
     validate,
     onSubmit: (values) => {
@@ -35,6 +39,7 @@ const CreateTeam = () => {
     },
   });
   const { sendRequest } = useHttpClient();
+
   const searchRecords = async () => {
     if (search.trim().length === 0) {
       setRecord([]);
@@ -126,6 +131,6 @@ const CreateTeam = () => {
       </ul>
     </>
   );
-};
+}, areequal);
 
-export default CreateTeam;
+export default UpdateTeam;

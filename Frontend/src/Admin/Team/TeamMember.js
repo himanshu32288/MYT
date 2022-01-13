@@ -1,5 +1,11 @@
 import "./TeamMember.css";
-const TeamMember = (props) => {
+import React from "react";
+import { useEffect } from "react";
+function areEqual(prevProps, nextProps) {
+  return prevProps.teamPlayer.length === nextProps.teamPlayer.length;
+}
+const TeamMember = React.memo((props) => {
+  useEffect(() => console.log("render1"));
   return (
     <ul>
       {props.teamPlayer.map((player) => {
@@ -18,6 +24,6 @@ const TeamMember = (props) => {
       })}
     </ul>
   );
-};
+}, areEqual);
 
 export default TeamMember;
