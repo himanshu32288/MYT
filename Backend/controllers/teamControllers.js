@@ -1,22 +1,23 @@
 const Team = require("../models/team");
 
 const createTeam = async (req, res, next) => {
-  const { team, players } = req.body;
+  const { name, shortname, players } = req.body;
 
   let hasTeam;
   try {
-    hasTeam = await Team.find({ team: team });
+    hasTeam = await Team.find({ name: name });
   } catch (err) {
     return next(err);
   }
 
   if (hasTeam.length) return next("Team already exist update instead");
   const createdTeam = new Team({
-    team,
+    name,
+    shortname,
     players,
   });
   createdTeam.save();
-  res.status(200).json(createdTeam);
+  res.status(200).json("enjoy");
 };
 
 const updateTeam = async (req, res, next) => {

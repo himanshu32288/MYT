@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateTeam.css";
 import { useHttpClient } from "../../shared/hook/http-hook";
 import TeamMember from "./TeamMember";
+import { useParams } from "react-router-dom";
 
 const validate = (values) => {
   const errors = {};
@@ -15,18 +16,25 @@ const validate = (values) => {
     errors.shortname = "shortname should be of 3 character";
   return errors;
 };
-function areEqual(prevProps, nextProps) {
-  return prevProps.teamPlayer.length === nextProps.teamPlayer.length;
-}
-const UpdateTeam = React.memo((props) => {
+const UpdateTeam = () => {
   const [search, setSearch] = useState("");
   const [record, setRecord] = useState([]);
   const [teamPlayer, setTeamPlayer] = useState([]);
-
+  const teamid = useParams().teamid;
+  const { sendRequest } = useHttpClient();
+  useEffect(() => {
+    const fetchteam = async () => {
+      const fetchedPlayer = [];
+      let data = await sendRequest(`http://localhost:5000/api/team/${teamid}`);
+      fetchedPlayer.push(data);
+      setTeamPlayer(fetchedPlayer);
+    };
+    fetchteam();
+  }, [sendRequest, teamid]);
   const formik = useFormik({
     initialValues: {
-      name: props.team.name,
-      shortname: props.team.shortname,
+      name: "",
+      shortname: "",
     },
     validate,
     onSubmit: (values) => {
@@ -38,7 +46,6 @@ const UpdateTeam = React.memo((props) => {
       alert(JSON.stringify(data, null, 2)); //post
     },
   });
-  const { sendRequest } = useHttpClient();
 
   const searchRecords = async () => {
     if (search.trim().length === 0) {
@@ -131,6 +138,6 @@ const UpdateTeam = React.memo((props) => {
       </ul>
     </>
   );
-}, areequal);
+};
 
 export default UpdateTeam;

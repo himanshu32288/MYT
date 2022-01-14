@@ -25,13 +25,21 @@ const CreateTeam = () => {
       shortname: "",
     },
     validate,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const players = [];
       for (let x of teamPlayer) {
         players.push(x._id);
       }
       const data = { ...values, players };
-      alert(JSON.stringify(data, null, 2)); //post
+      const res = await sendRequest(
+        "http://localhost:5000/api/team/newteam",
+        "POST",
+        {
+          "Content-Type": "application/json",
+        },
+        JSON.stringify(data, null, 2)
+      );
+      console.log(res);
     },
   });
   const { sendRequest } = useHttpClient();
